@@ -121,11 +121,10 @@
             <button onclick="showHowTo()">Hoe werkt het?</button>
         </div>
 
+        <!-- Preview van de handtekening -->
         <div class="output">
-            <h3>HTML Code:</h3>
-            <textarea id="generatedHtml" rows="10" style="width: 100%;"></textarea><br />
-            <button onclick="copyToClipboard()">Kopieer HTML</button>
-            <button onclick="downloadHtml()">Download HTML</button>
+            <h3>Voorbeeld:</h3>
+            <div id="signaturePreview"></div>
             <button onclick="copyPreview()">Handtekening kopiëren voor Outlook</button>
         </div>
     </div>
@@ -144,7 +143,7 @@
                 <li>Plak de handtekening (Ctrl+V of rechtermuisklik → Plakken).</li>
                 <li>Stel de handtekening in als standaard voor nieuwe berichten en antwoorden (6), zo wordt deze automatisch aan iedere e-mail toegevoegd.</li>
                 <li>Klik op opslaan.</li>
-                <li><strong>Gebruik je een andere e-mailclient? </strong>Gebruik dan de gegenereerde html-code.</li>
+                <li><strong>Gebruik je een andere e-mailclient?</strong>Gebruik dan de gegenereerde html-code.</li>
             </ol>
             <img src="howto-screenshot.png" alt="Voorbeeld screenshot">
         </div>
@@ -199,23 +198,8 @@
     </tr>
 </table>`;
 
-            document.getElementById('generatedHtml').value = html;
-        }
-
-        function copyToClipboard() {
-            const html = document.getElementById('generatedHtml');
-            html.select();
-            document.execCommand('copy');
-            alert('HTML gekopieerd naar klembord!');
-        }
-
-        function downloadHtml() {
-            const html = document.getElementById('generatedHtml').value;
-            const blob = new Blob([html], { type: 'text/html' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'email-signature.html';
-            link.click();
+            // Voeg de gegenereerde handtekening toe aan de preview sectie
+            document.getElementById('signaturePreview').innerHTML = html;
         }
 
         function copyPreview() {
