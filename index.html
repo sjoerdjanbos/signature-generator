@@ -56,44 +56,9 @@
             margin-top: 20px;
         }
 
-        .output pre {
+        .output textarea {
             white-space: pre-wrap;
             word-wrap: break-word;
-        }
-
-        .preview {
-            background: #f4f4f4;
-            padding: 20px;
-            margin-top: 20px;
-            border: 1px solid #ddd;
-        }
-
-        .preview table {
-            width: 100%;
-            font-size: 12px;
-            border-spacing: 10px;
-        }
-
-        .preview td {
-            padding: 5px;
-            vertical-align: middle;
-        }
-
-        .preview td img {
-            vertical-align: middle;
-        }
-
-        .preview table,
-        .preview td,
-        .preview th {
-            border: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .preview td a {
-            color: #1D2849;
-            text-decoration: none;
         }
 
         /* Modaal styling */
@@ -145,7 +110,7 @@
         <h1>DDOP E-mail Handtekening Generator</h1>
 
         <div class="section">
-            <label for="name">Voor- en achternaam/label>
+            <label for="name">Voor- en achternaam/label</label>
             <input type="text" id="name" placeholder="Jouw naam" />
             <label for="email">DDOP e-mailadres</label>
             <input type="text" id="email" placeholder="naam@ddop.nl" />
@@ -163,11 +128,6 @@
             <button onclick="downloadHtml()">Download HTML</button>
             <button onclick="copyPreview()">Handtekening kopiëren voor Outlook</button>
         </div>
-
-        <div class="preview">
-            <h3>Preview:</h3>
-            <div id="signaturePreview"></div>
-        </div>
     </div>
 
     <!-- Modaal -->
@@ -184,7 +144,7 @@
                 <li>Plak de handtekening (Ctrl+V of rechtermuisklik → Plakken).</li>
                 <li>Stel de handtekening in als standaard voor nieuwe berichten en antwoorden (6), zo wordt deze automatisch aan iedere e-mail toegevoegd.</li>
                 <li>Klik op opslaan.</li>
-                <li><strong>Gebruik je een andere e-mailclient?</strong>Gebruik dan de gegenereerde html-code.</li>
+                <li><strong>Gebruik je een andere e-mailclient?</strong> Gebruik dan de gegenereerde html-code.</li>
             </ol>
             <img src="howto-screenshot.png" alt="Voorbeeld screenshot">
         </div>
@@ -240,7 +200,6 @@
 </table>`;
 
             document.getElementById('generatedHtml').value = html;
-            document.getElementById('signaturePreview').innerHTML = html;
         }
 
         function copyToClipboard() {
