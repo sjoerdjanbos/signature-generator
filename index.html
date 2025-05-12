@@ -50,41 +50,18 @@
             background-color: #5a9a24;
         }
 
-        .preview {
+        .output {
             background: #f4f4f4;
             padding: 20px;
             margin-top: 20px;
-            border: 1px solid #ddd;
         }
 
-        .preview table {
-            width: 100%;
-            font-size: 12px;
-            border-spacing: 10px;
+        .output pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
         }
 
-        .preview td {
-            padding: 5px;
-            vertical-align: middle;
-        }
-
-        .preview td img {
-            vertical-align: middle;
-        }
-
-        .preview table,
-        .preview td,
-        .preview th {
-            border: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .preview td a {
-            color: #1D2849;
-            text-decoration: none;
-        }
-
+        /* Modaal styling */
         .modal {
             display: none;
             position: fixed;
@@ -133,7 +110,7 @@
         <h1>DDOP E-mail Handtekening Generator</h1>
 
         <div class="section">
-            <label for="name">Voor- en achternaam</label>
+            <label for="name">Voor- en achternaam/label</label>
             <input type="text" id="name" placeholder="Jouw naam" />
             <label for="email">DDOP e-mailadres</label>
             <input type="text" id="email" placeholder="naam@ddop.nl" />
@@ -142,12 +119,14 @@
         <div class="button-group">
             <button onclick="generateSignature()">Handtekening genereren</button>
             <button onclick="showHowTo()">Hoe werkt het?</button>
-            <button onclick="copyPreview()">HTML kopiëren</button>
         </div>
 
-        <div class="preview">
-            <h3>Preview:</h3>
+        <!-- Preview van de handtekening -->
+        <div class="output">
+            <h3>Voorbeeld:</h3>
             <div id="signaturePreview"></div>
+            <button onclick="copyPreview()">Handtekening kopiëren voor Outlook</button>
+            <button onclick="copyHTML()">HTML-code kopiëren</button>
         </div>
     </div>
 
@@ -159,8 +138,13 @@
             <ol>
                 <li>Vul je naam en e-mailadres in.</li>
                 <li>Klik op "Handtekening genereren".</li>
-                <li>Klik op "HTML kopiëren".</li>
-                <li>Plak de handtekening in Outlook (Ctrl+V of rechtermuisklik → Plakken).</li>
+                <li>Klik op "Handtekening kopiëren voor Outlook".</li>
+                <li>Ga in Outlook Web naar 1. Instellingen (tandwiel rechtsbovenin) → 2. Account → 3. Handtekeningen</li>
+                <li>Klik op Nieuwe handtekening (4)</li>
+                <li>Plak de handtekening (Ctrl+V of rechtermuisklik → Plakken).</li>
+                <li>Stel de handtekening in als standaard voor nieuwe berichten en antwoorden (6), zo wordt deze automatisch aan iedere e-mail toegevoegd.</li>
+                <li>Klik op opslaan.</li>
+                <li><strong>Gebruik je een andere e-mailclient?</strong>Gebruik dan de gegenereerde html-code.</li>
             </ol>
             <img src="howto-screenshot.png" alt="Voorbeeld screenshot">
         </div>
@@ -172,42 +156,42 @@
             const email = document.getElementById('email').value;
 
             const html = `
-<table cellpadding="0" cellspacing="0" style="font-family:'Inter', Arial, sans-serif; color:#1D2849; font-size:12px; line-height:1.4; width:100%; max-width:400px; background-color:transparent;">
+<table cellpadding="0" cellspacing="0" style="font-family:'Inter', Arial, sans-serif; color:#1D2849; font-size:12px; line-height:1.4; width:100%; max-width:400px;">
     <tr>
-        <td style="padding-right:0px; vertical-align:top; background-color:transparent;">
+        <td style="padding-right:0px; vertical-align:top;">
             <img src="http://cms.deduurzameoplossing.nl/wp-content/uploads/2025/05/Logo.png" width="120" alt="Logo" style="display:block;">
         </td>
-        <td style="vertical-align:top; background-color:transparent;">
-            <div style="border-bottom: 4px solid #70B62B; padding-bottom:10px; margin-bottom:10px; width:100%; background-color:transparent;">
-                <div style="margin:0; font-size:20px; font-weight:600; background-color:transparent;">${name}</div>
-                <div style="margin:0; font-size:14px; font-weight:500; color: #70B62B; background-color:transparent;">De Duurzame Oplossing</div>
+        <td style="vertical-align:top;">
+            <div style="border-bottom: 4px solid #70B62B; padding-bottom:10px; margin-bottom:10px; width:100%;">
+                <p style="margin:0; font-size:20px; font-weight:600;">${name}</p>
+                <p style="margin:0; font-size:14px; font-weight:500; color: #70B62B;">De Duurzame Oplossing</p>
             </div>
-            <table cellpadding="0" cellspacing="10" style="width:100%; font-size:12px; background-color:transparent;">
+            <table cellpadding="0" cellspacing="10" style="width:100%; font-size:12px;">
                 <tr>
-                    <td style="vertical-align:middle; width:18px; background-color:transparent;">
+                    <td style="vertical-align:middle; width:18px;">
                         <img src="http://cms.deduurzameoplossing.nl/wp-content/uploads/2025/05/Phone.png" width="12" alt="Phone">
                     </td>
-                    <td style="background-color:transparent;"><a href="tel:0851309694" style="color:#1D2849; text-decoration:none;">085 130 9694</a></td>
+                    <td><a href="tel:0851309694" style="color:#1D2849; text-decoration:none;">085 130 9694</a></td>
                 </tr>
                 <tr>
-                    <td style="vertical-align:middle; background-color:transparent;">
+                    <td style="vertical-align:middle;">
                         <img src="http://cms.deduurzameoplossing.nl/wp-content/uploads/2025/05/Mail.png" width="12" alt="Email">
                     </td>
-                    <td style="background-color:transparent;"><a href="mailto:${email}" style="color:#1D2849; text-decoration:none;">${email}</a></td>
+                    <td><a href="mailto:${email}" style="color:#1D2849; text-decoration:none;">${email}</a></td>
                 </tr>
                 <tr>
-                    <td style="vertical-align:middle; background-color:transparent;">
+                    <td style="vertical-align:middle;">
                         <img src="http://cms.deduurzameoplossing.nl/wp-content/uploads/2025/05/Web.png" width="12" alt="Website">
                     </td>
-                    <td style="background-color:transparent;"><a href="https://www.deduurzameoplossing.nl" target="_blank" style="color:#1D2849; text-decoration:none;">www.deduurzameoplossing.nl</a></td>
+                    <td><a href="https://www.deduurzameoplossing.nl" target="_blank" style="color:#1D2849; text-decoration:none;">www.deduurzameoplossing.nl</a></td>
                 </tr>
                 <tr>
-                    <td style="vertical-align:middle; background-color:transparent;">
+                    <td style="vertical-align:middle;">
                         <img src="http://cms.deduurzameoplossing.nl/wp-content/uploads/2025/05/Marker.png" width="12" alt="Address">
                     </td>
-                    <td style="color:#1D2849; background-color:transparent;">
-                        <div style="margin:0; background-color:transparent;">Harlingertrekweg 53</div>
-                        <div style="margin:0; background-color:transparent;">8913 HR Leeuwarden</div>
+                    <td style="color:#1D2849;">
+                        <p style="margin:0;">Harlingertrekweg 53</p>
+                        <p style="margin:0;">8913 HR Leeuwarden</p>
                     </td>
                 </tr>
             </table>
@@ -215,6 +199,7 @@
     </tr>
 </table>`;
 
+            // Voeg de gegenereerde handtekening toe aan de preview sectie
             document.getElementById('signaturePreview').innerHTML = html;
         }
 
@@ -230,6 +215,17 @@
             alert("Handtekening gekopieerd! Je kunt hem nu plakken in Outlook.");
         }
 
+        function copyHTML() {
+            const htmlCode = document.getElementById('signaturePreview').innerHTML;
+            const textarea = document.createElement('textarea');
+            textarea.value = htmlCode;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert('HTML-code gekopieerd!');
+        }
+
         function showHowTo() {
             document.getElementById("howtoModal").style.display = "block";
         }
@@ -238,6 +234,7 @@
             document.getElementById("howtoModal").style.display = "none";
         }
 
+        // Sluit modaal als je buiten het venster klikt
         window.onclick = function (event) {
             const modal = document.getElementById("howtoModal");
             if (event.target == modal) {
