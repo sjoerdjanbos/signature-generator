@@ -110,7 +110,7 @@
         <h1>DDOP E-mail Handtekening Generator</h1>
 
         <div class="section">
-            <label for="name">Voor- en achternaam/label</label>
+            <label for="name">Voor- en achternaam</label>
             <input type="text" id="name" placeholder="Jouw naam" />
             <label for="email">DDOP e-mailadres</label>
             <input type="text" id="email" placeholder="naam@ddop.nl" />
@@ -126,6 +126,7 @@
             <h3>Voorbeeld:</h3>
             <div id="signaturePreview"></div>
             <button onclick="copyPreview()">Handtekening kopiëren voor Outlook</button>
+            <button onclick="copyHTML()">HTML-code kopiëren</button>
         </div>
     </div>
 
@@ -212,6 +213,17 @@
             document.execCommand("copy");
             selection.removeAllRanges();
             alert("Handtekening gekopieerd! Je kunt hem nu plakken in Outlook.");
+        }
+
+        function copyHTML() {
+            const htmlCode = document.getElementById('signaturePreview').innerHTML;
+            const textarea = document.createElement('textarea');
+            textarea.value = htmlCode;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert('HTML-code gekopieerd!');
         }
 
         function showHowTo() {
